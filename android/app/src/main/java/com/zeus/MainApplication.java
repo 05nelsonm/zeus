@@ -16,6 +16,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import android.content.Context;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
@@ -124,4 +125,40 @@ public class MainApplication extends Application implements ReactApplication {
               .setEventBroadcaster(new ZeusTorEventBroadcaster())
               .build();
   }
+
+  /**
+   * Will throw the ClassCastException if called before setupTor() because
+   * appEventBroadcaster is null (hasn't been set yet).
+   * */
+  private ZeusTorEventBroadcaster getEventBroadcaster() throws ClassCastException {
+      return (ZeusTorEventBroadcaster) TorServiceController.Companion.getAppEventBroadcaster();
+  }
+
+  @Nullable
+  public String getControlPort() {
+      try {
+          return getEventBroadcaster().getControlPortAddress();
+      } catch (ClassCastException e) {
+          return null;
+      }
+  }
+
+  @Nullable
+  public String getHttpAddress() {
+      try {
+          return getEventBroadcaster().getHttpPortAddress();
+      } catch (ClassCastException e) {
+          return null;
+      }
+  }
+
+  @Nullable
+  public String getSocksAddress() {
+      try {
+          return getEventBroadcaster().getSocksPortAddress();
+      } catch (ClassCastException e) {
+          return null;
+      }
+  }
+
 }
