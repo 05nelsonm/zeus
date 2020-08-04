@@ -8,7 +8,12 @@ import io.matthewnelson.topl_service.service.components.onionproxy.TorServiceEve
 public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
     @Nullable
-    volatile String controlPortAddress = null;
+    volatile private String controlPortAddress = null;
+
+    @Nullable
+    public String getControlPortAddress() {
+        return controlPortAddress;
+    }
 
     @Override
     public void broadcastControlPortAddress(@Nullable String controlPortAddress) {
@@ -16,7 +21,12 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     }
 
     @Nullable
-    volatile String httpPortAddress = null;
+    volatile private String httpPortAddress = null;
+
+    @Nullable
+    public String getHttpPortAddress() {
+        return httpPortAddress;
+    }
 
     @Override
     public void broadcastHttpPortAddress(@Nullable String httpPortAddress) {
@@ -24,7 +34,12 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     }
 
     @Nullable
-    volatile String socksPortAddress = null;
+    volatile private String socksPortAddress = null;
+
+    @Nullable
+    public String getSocksPortAddress() {
+        return socksPortAddress;
+    }
 
     @Override
     public void broadcastSocksPortAddress(@Nullable String socksPortAddress) {
