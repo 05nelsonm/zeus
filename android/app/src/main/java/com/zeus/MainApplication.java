@@ -64,24 +64,19 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
 
-    // setup Tor first before calling any APIs (otherwise RunTimeException is thrown)
+    // setup Tor first before calling any APIs
     setupTor(this);
 
     // put this anywhere (maybe after successful login)
     TorServiceController.Companion.startTor();
-
-    // other APIs (for now ;-D)
-//    TorServiceController.Companion.stopTor();
-//    TorServiceController.Companion.restartTor();
-//    TorServiceController.Companion.newIdentity();
   }
 
   public void newTorIdentity() {
-      TorServiceController.Companion.newIdentity();
+    TorServiceController.Companion.newIdentity();
   }
 
   public void restartTor() {
-      TorServiceController.Companion.restartTor();
+    TorServiceController.Companion.restartTor();
   }
 
   /**
@@ -90,66 +85,93 @@ public class MainApplication extends Application implements ReactApplication {
    * Exception was thrown.
    * */
   public boolean startTor() {
-      try {
-          TorServiceController.Companion.startTor();
-          return true;
-      } catch (RuntimeException ignored) {
-          return false;
-      }
+    try {
+      TorServiceController.Companion.startTor();
+      return true;
+    } catch (RuntimeException ignored) {
+      return false;
+    }
   }
 
   public void stopTor() {
-      TorServiceController.Companion.stopTor();
+    TorServiceController.Companion.stopTor();
+  }
+
+  @Nullable
+  public String getControlPort() {
+    try {
+      return getEventBroadcaster().getControlPortAddress();
+    } catch (ClassCastException e) {
+      return null;
+    }
+  }
+
+  @Nullable
+  public String getHttpAddress() {
+    try {
+      return getEventBroadcaster().getHttpPortAddress();
+    } catch (ClassCastException e) {
+      return null;
+    }
+  }
+
+  @Nullable
+  public String getSocksAddress() {
+    try {
+      return getEventBroadcaster().getSocksPortAddress();
+    } catch (ClassCastException e) {
+      return null;
+    }
   }
 
   private ServiceNotification.Builder generateServiceNotificationBuilder() {
-      return new ServiceNotification.Builder(
-              "ZeusLN Tor",
-              "TorService",
-              "TorOnionProxyLibrary-Android",
-              615
-      )
-              // customize the images later with your own images
-              .setImageTorNetworkingEnabled(R.drawable.tor_stat_network_enabled)
-              .setImageTorNetworkingDisabled(R.drawable.tor_stat_network_disabled)
-              .setImageTorDataTransfer(R.drawable.tor_stat_network_dataxfer)
-              .setImageTorErrors(R.drawable.tor_stat_notifyerr)
+    return new ServiceNotification.Builder(
+          "ZeusLN Tor",
+          "TorService",
+          "TorOnionProxyLibrary-Android",
+          615
+    )
+          // customize the images later with your own images
+          .setImageTorNetworkingEnabled(R.drawable.tor_stat_network_enabled)
+          .setImageTorNetworkingDisabled(R.drawable.tor_stat_network_disabled)
+          .setImageTorDataTransfer(R.drawable.tor_stat_network_dataxfer)
+          .setImageTorErrors(R.drawable.tor_stat_notifyerr)
 
-              // choose a color that you like more
-              .setCustomColor(R.color.purple)
+          // choose a color that you like more
+          .setCustomColor(R.color.purple)
 
-              // lock screen visibility
-              .setVisibility(NotificationCompat.VISIBILITY_SECRET)
+          // lock screen visibility
+          .setVisibility(NotificationCompat.VISIBILITY_SECRET)
 
-              // notification buttons (New ID is always present)
-              .enableTorRestartButton(true)
-              .enableTorStopButton(true)
+          // notification buttons (New ID is always present)
+          .enableTorRestartButton(true)
+          .enableTorStopButton(true)
 
-              // enable/disable showing of notification
-              .showNotification(true);
+          // enable/disable showing of notification
+          .showNotification(true);
   }
 
   private BackgroundManager.Builder.Policy generateBackgroundManagerPolicy() {
-      return new BackgroundManager.Builder()
-              .respectResourcesWhileInBackground(20);
+    return new BackgroundManager.Builder()
+          .respectResourcesWhileInBackground(20);
   }
 
   private void setupTor(Application application) {
-      new TorServiceController.Builder(
-              application,
-              generateServiceNotificationBuilder(),
-              generateBackgroundManagerPolicy(),
-              BuildConfig.VERSION_CODE,
-              new ZeusTorSettings(),
-              "common/geoip",
-              "common/geoip6"
-      )
-              .setBuildConfigDebug(BuildConfig.DEBUG)
+    new TorServiceController.Builder(
+          application,
+          generateServiceNotificationBuilder(),
+          generateBackgroundManagerPolicy(),
+          BuildConfig.VERSION_CODE,
+          new ZeusTorSettings(),
+          "common/geoip",
+          "common/geoip6"
+    )
+          .setBuildConfigDebug(BuildConfig.DEBUG)
 
-              // is available from TorServiceController.Companion.appEventBroadcaster
-              // just cast it as ZeusTorEventBroadcaster
-              .setEventBroadcaster(new ZeusTorEventBroadcaster())
-              .build();
+          // is available from TorServiceController.Companion.appEventBroadcaster
+          // just cast it as ZeusTorEventBroadcaster
+          .setEventBroadcaster(new ZeusTorEventBroadcaster())
+          .build();
   }
 
   /**
@@ -157,34 +179,6 @@ public class MainApplication extends Application implements ReactApplication {
    * appEventBroadcaster is null (hasn't been set yet).
    * */
   private ZeusTorEventBroadcaster getEventBroadcaster() throws ClassCastException {
-      return (ZeusTorEventBroadcaster) TorServiceController.Companion.getAppEventBroadcaster();
+    return (ZeusTorEventBroadcaster) TorServiceController.Companion.getAppEventBroadcaster();
   }
-
-  @Nullable
-  public String getControlPort() {
-      try {
-          return getEventBroadcaster().getControlPortAddress();
-      } catch (ClassCastException e) {
-          return null;
-      }
-  }
-
-  @Nullable
-  public String getHttpAddress() {
-      try {
-          return getEventBroadcaster().getHttpPortAddress();
-      } catch (ClassCastException e) {
-          return null;
-      }
-  }
-
-  @Nullable
-  public String getSocksAddress() {
-      try {
-          return getEventBroadcaster().getSocksPortAddress();
-      } catch (ClassCastException e) {
-          return null;
-      }
-  }
-
 }
