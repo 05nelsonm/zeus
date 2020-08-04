@@ -5,6 +5,14 @@ import androidx.annotation.Nullable;
 
 import io.matthewnelson.topl_service.service.components.onionproxy.TorServiceEventBroadcaster;
 
+/**
+ * Ports are broadcast and then set to each variable _after_ Tor has been bootstrapped.
+ * If Tor's state changes from ON to anything else (via restart, or stopping), null will
+ * be broadcast.
+ *
+ * This class was instantiated in MainApplication.setupTor and is available from
+ * TorServiceController.Companion.appEventBroadcaster
+ * */
 public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
     @Nullable
