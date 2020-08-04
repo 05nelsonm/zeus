@@ -7,20 +7,28 @@ import io.matthewnelson.topl_service.service.components.onionproxy.TorServiceEve
 
 public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
+    @Nullable
+    volatile String controlPortAddress = null;
 
     @Override
     public void broadcastControlPortAddress(@Nullable String controlPortAddress) {
-
+        this.controlPortAddress = controlPortAddress
     }
+
+    @Nullable
+    volatile String httpPortAddress = null;
 
     @Override
     public void broadcastHttpPortAddress(@Nullable String httpPortAddress) {
-
+        this.httpPortAddress = httpPortAddress
     }
+
+    @Nullable
+    volatile String socksPortAddress = null;
 
     @Override
     public void broadcastSocksPortAddress(@Nullable String socksPortAddress) {
-
+        this.socksPortAddress = socksPortAddress
     }
 
     @Override
