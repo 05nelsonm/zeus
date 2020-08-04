@@ -12,7 +12,7 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
     @Override
     public void broadcastControlPortAddress(@Nullable String controlPortAddress) {
-        this.controlPortAddress = controlPortAddress
+        this.controlPortAddress = controlPortAddress;
     }
 
     @Nullable
@@ -20,7 +20,7 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
     @Override
     public void broadcastHttpPortAddress(@Nullable String httpPortAddress) {
-        this.httpPortAddress = httpPortAddress
+        this.httpPortAddress = httpPortAddress;
     }
 
     @Nullable
@@ -28,7 +28,7 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
     @Override
     public void broadcastSocksPortAddress(@Nullable String socksPortAddress) {
-        this.socksPortAddress = socksPortAddress
+        this.socksPortAddress = socksPortAddress;
     }
 
     @Override
