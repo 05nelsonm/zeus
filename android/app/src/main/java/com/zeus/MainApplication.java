@@ -76,6 +76,32 @@ public class MainApplication extends Application implements ReactApplication {
 //    TorServiceController.Companion.newIdentity();
   }
 
+  public void newTorIdentity() {
+      TorServiceController.Companion.newIdentity();
+  }
+
+  public void restartTor() {
+      TorServiceController.Companion.restartTor();
+  }
+
+  /**
+   * A RuntimeException is thrown if this method is called before setupTor. In that event,
+   * this will return `false` instead of throwing an exception. Will return `true` if no
+   * Exception was thrown.
+   * */
+  public boolean startTor() {
+      try {
+          TorServiceController.Companion.startTor();
+          return true;
+      } catch (RuntimeException ignored) {
+          return false;
+      }
+  }
+
+  public void stopTor() {
+      TorServiceController.Companion.stopTor();
+  }
+
   private ServiceNotification.Builder generateServiceNotificationBuilder() {
       return new ServiceNotification.Builder(
               "ZeusLN Tor",
