@@ -73,32 +73,37 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     }
 
     @Override
-    public void broadcastBandwidth(@NonNull String bytesRead, @NonNull String bytesWritten) {
-
-    }
+    public void broadcastBandwidth(@NonNull String bytesRead, @NonNull String bytesWritten) {}
 
     @Override
-    public void broadcastDebug(@NonNull String msg) {
-
-    }
+    public void broadcastDebug(@NonNull String msg) {}
 
     @Override
-    public void broadcastException(@Nullable String msg, @NonNull Exception e) {
-
-    }
+    public void broadcastException(@Nullable String msg, @NonNull Exception e) {}
 
     @Override
-    public void broadcastLogMessage(@Nullable String logMessage) {
-
-    }
+    public void broadcastLogMessage(@Nullable String logMessage) {}
 
     @Override
-    public void broadcastNotice(@NonNull String msg) {
+    public void broadcastNotice(@NonNull String msg) {}
 
+    private String torState = TorState.OFF;
+
+    @NonNull
+    public String getTorState() {
+        return torState;
+    }
+
+    private String torNetworkState = TorNetworkState.DISABLED;
+
+    @NonNull
+    public String getTorNetworkState() {
+        return torNetworkState;
     }
 
     @Override
     public void broadcastTorState(@NonNull String torState, @NonNull String torNetworkState) {
-
+        this.torState = torState;
+        this.torNetworkState = torNetworkState;
     }
 }
