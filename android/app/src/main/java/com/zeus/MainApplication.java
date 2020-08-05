@@ -59,32 +59,31 @@ public class MainApplication extends Application implements ReactApplication {
     TorServiceController.Companion.startTor();
   }
 
-  // commented helper methods out until return type kotlin.Unit issue can be resolved.
-//  public void newTorIdentity() {
-//    TorServiceController.Companion.newIdentity();
-//  }
-//
-//  public void restartTor() {
-//    TorServiceController.Companion.restartTor();
-//  }
-//
-//  /**
-//   * A RuntimeException is thrown if this method is called before setupTor. In that event,
-//   * this will return `false` instead of throwing an exception. Will return `true` if no
-//   * Exception was thrown.
-//   * */
-//  public boolean startTor() {
-//    try {
-//      TorServiceController.Companion.startTor();
-//      return true;
-//    } catch (RuntimeException ignored) {
-//      return false;
-//    }
-//  }
-//
-//  public void stopTor() {
-//    TorServiceController.Companion.stopTor();
-//  }
+  public void newTorIdentity() {
+    TorServiceController.Companion.newIdentity();
+  }
+
+  public void restartTor() {
+    TorServiceController.Companion.restartTor();
+  }
+
+  /**
+   * A RuntimeException is thrown if this method is called before setupTor. In that event,
+   * this will return `false` instead of throwing an exception. Will return `true` if no
+   * Exception was thrown.
+   * */
+  public boolean startTor() {
+    try {
+      TorServiceController.Companion.startTor();
+      return true;
+    } catch (RuntimeException ignored) {
+      return false;
+    }
+  }
+
+  public void stopTor() {
+    TorServiceController.Companion.stopTor();
+  }
 
   @Nullable
   public String getControlPort() {
