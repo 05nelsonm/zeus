@@ -15,6 +15,9 @@ import io.matthewnelson.topl_service.service.components.onionproxy.TorServiceEve
  * */
 public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
+    ///////////////////////////
+    /// ControlPort Address ///
+    ///////////////////////////
     @Nullable
     volatile private String controlPortAddress = null;
 
@@ -34,6 +37,9 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
         this.controlPortAddress = controlPortAddress;
     }
 
+    ///////////////////////
+    /// HttpPortAddress ///
+    ///////////////////////
     @Nullable
     volatile private String httpPortAddress = null;
 
@@ -53,6 +59,9 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
         this.httpPortAddress = httpPortAddress;
     }
 
+    /////////////////////////
+    /// SocksPort Address ///
+    /////////////////////////
     @Nullable
     volatile private String socksPortAddress = null;
 
@@ -72,29 +81,46 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
         this.socksPortAddress = socksPortAddress;
     }
 
+    /////////////////
+    /// Bandwidth ///
+    /////////////////
     @Override
     public void broadcastBandwidth(@NonNull String bytesRead, @NonNull String bytesWritten) {}
 
+    //////////////////////
+    /// Debug Messages ///
+    //////////////////////
     @Override
     public void broadcastDebug(@NonNull String msg) {}
 
+    //////////////////////////
+    /// Exception Messages ///
+    //////////////////////////
     @Override
     public void broadcastException(@Nullable String msg, @NonNull Exception e) {}
 
+    ////////////////////
+    /// Log Messages ///
+    ////////////////////
     @Override
     public void broadcastLogMessage(@Nullable String logMessage) {}
 
+    ///////////////////////
+    /// Notice Messages ///
+    ///////////////////////
     @Override
     public void broadcastNotice(@NonNull String msg) {}
 
+    /////////////////
+    /// Tor State ///
+    /////////////////
     private String torState = TorState.OFF;
+    private String torNetworkState = TorNetworkState.DISABLED;
 
     @NonNull
     public String getTorState() {
         return torState;
     }
-
-    private String torNetworkState = TorNetworkState.DISABLED;
 
     @NonNull
     public String getTorNetworkState() {
