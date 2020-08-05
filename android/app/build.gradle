@@ -189,6 +189,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'com.android.support:multidex:1.0.3'
@@ -200,9 +206,11 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
-    implementation 'io.matthewnelson.topl-android:topl-core-base:1.0.0-alpha02'
-    implementation 'io.matthewnelson.topl-android:topl-service:1.0.0-alpha02'
-    implementation 'io.matthewnelson.topl-android:tor-binary:0.4.3.5a'
+
+    def topl_version = "1.0.0-alpha03-SNAPSHOT"
+    implementation "io.matthewnelson.topl-android:topl-core-base:$topl_version"
+    implementation "io.matthewnelson.topl-android:topl-service:$topl_version"
+    implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.5a"
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
