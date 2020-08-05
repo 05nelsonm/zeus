@@ -18,6 +18,12 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     @Nullable
     volatile private String controlPortAddress = null;
 
+    /**
+     * Will return either:
+     *   - null (if Tor is not Bootstrapped)
+     *   - 127.0.0.1:PORT (where PORT is the automatically chosen port Tor set for
+     *   the Control Port) as a String
+     * */
     @Nullable
     public String getControlPortAddress() {
         return controlPortAddress;
@@ -31,6 +37,12 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     @Nullable
     volatile private String httpPortAddress = null;
 
+    /**
+     * Will return either:
+     *   - null (if Tor is not Bootstrapped)
+     *   - 127.0.0.1:PORT (where PORT is the automatically chosen port Tor set for
+     *   the http proxy) as a String
+     * */
     @Nullable
     public String getHttpPortAddress() {
         return httpPortAddress;
@@ -44,6 +56,12 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     @Nullable
     volatile private String socksPortAddress = null;
 
+    /**
+     * Will return either:
+     *   - null (if Tor is not Bootstrapped)
+     *   - 127.0.0.1:PORT (where PORT is the automatically chosen port Tor set for
+     *   the Socks5 proxy) as a String
+     * */
     @Nullable
     public String getSocksPortAddress() {
         return socksPortAddress;
