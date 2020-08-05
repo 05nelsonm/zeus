@@ -1,32 +1,20 @@
 package app.zeusln.zeus;
 
 import android.app.Application;
-import android.util.Log;
+
 import com.facebook.react.PackageList;
-import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
-import com.facebook.react.bridge.JavaScriptExecutorFactory;
-import com.facebook.react.shell.MainReactPackage;
 
 import com.facebook.react.ReactApplication;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.wix.RNCameraKit.RNCameraKitPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import android.content.Context;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.reactlibrary.securekeystore.RNSecureKeyStorePackage;
-
 import com.facebook.soloader.SoLoader;
-import com.microsoft.ActivityResultPackage;
 import com.zeus.topl_android.ZeusTorEventBroadcaster;
 import com.zeus.topl_android.ZeusTorSettings;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import io.matthewnelson.topl_service.TorServiceController;
@@ -71,31 +59,32 @@ public class MainApplication extends Application implements ReactApplication {
     TorServiceController.Companion.startTor();
   }
 
-  public void newTorIdentity() {
-    TorServiceController.Companion.newIdentity();
-  }
-
-  public void restartTor() {
-    TorServiceController.Companion.restartTor();
-  }
-
-  /**
-   * A RuntimeException is thrown if this method is called before setupTor. In that event,
-   * this will return `false` instead of throwing an exception. Will return `true` if no
-   * Exception was thrown.
-   * */
-  public boolean startTor() {
-    try {
-      TorServiceController.Companion.startTor();
-      return true;
-    } catch (RuntimeException ignored) {
-      return false;
-    }
-  }
-
-  public void stopTor() {
-    TorServiceController.Companion.stopTor();
-  }
+  // commented helper methods out until return type kotlin.Unit issue can be resolved.
+//  public void newTorIdentity() {
+//    TorServiceController.Companion.newIdentity();
+//  }
+//
+//  public void restartTor() {
+//    TorServiceController.Companion.restartTor();
+//  }
+//
+//  /**
+//   * A RuntimeException is thrown if this method is called before setupTor. In that event,
+//   * this will return `false` instead of throwing an exception. Will return `true` if no
+//   * Exception was thrown.
+//   * */
+//  public boolean startTor() {
+//    try {
+//      TorServiceController.Companion.startTor();
+//      return true;
+//    } catch (RuntimeException ignored) {
+//      return false;
+//    }
+//  }
+//
+//  public void stopTor() {
+//    TorServiceController.Companion.stopTor();
+//  }
 
   @Nullable
   public String getControlPort() {
