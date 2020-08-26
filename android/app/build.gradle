@@ -210,7 +210,7 @@ dependencies {
     def topl_version = "1.0.0-beta01"
     implementation "io.matthewnelson.topl-android:topl-core-base:$topl_version"
     implementation "io.matthewnelson.topl-android:topl-service:$topl_version"
-    implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.5a"
+    implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.6"
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
