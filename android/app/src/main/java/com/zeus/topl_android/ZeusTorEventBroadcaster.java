@@ -13,22 +13,17 @@ import io.matthewnelson.topl_service.service.components.onionproxy.model.TorServ
  *
  * This class was instantiated in MainApplication.setupTor and is available from
  * TorServiceController.Companion.appEventBroadcaster
- * */
+ */
 public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
-    ///////////////////////
-    /// PortInformation ///
-    ///////////////////////
-    volatile private TorPortInfo torPortInfo = new TorPortInfo(null, null, null, null, null);
-
-    public TorPortInfo getTorPortInfo() {
-        return torPortInfo;
-    }
-
+    ///////////////////
+    /// TorPortInfo ///
+    ///////////////////
     @Override
     public void broadcastPortInformation(@NonNull TorPortInfo torPortInfo) {
-        this.torPortInfo = torPortInfo;
+        ZeusTorModule.updateTorPortInfo(torPortInfo);
     }
+
 
     /////////////////
     /// Bandwidth ///
@@ -36,17 +31,29 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     @Override
     public void broadcastBandwidth(@NonNull String bytesRead, @NonNull String bytesWritten) {}
 
+
     //////////////////////
     /// Debug Messages ///
     //////////////////////
     @Override
     public void broadcastDebug(@NonNull String msg) {}
 
+
     //////////////////////////
     /// Exception Messages ///
     //////////////////////////
+    /**
+     * Filters for TorService class, which is the only class that will broadcast an exception
+     * if there is an issue with Tor starting/stopping/etc.
+     */
     @Override
-    public void broadcastException(@Nullable String msg, @NonNull Exception e) {}
+    public void broadcastException(@Nullable String msg, @NonNull Exception e) {
+        if (msg != null && msg.contains("|TorService|")) {
+            ZeusTorModule.handleTorServiceException(msg, e);
+        }
+        e.printStackTrace();
+    }
+
 
     ////////////////////
     /// Log Messages ///
@@ -54,31 +61,19 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     @Override
     public void broadcastLogMessage(@Nullable String logMessage) {}
 
+
     ///////////////////////
     /// Notice Messages ///
     ///////////////////////
     @Override
     public void broadcastNotice(@NonNull String msg) {}
 
+
     /////////////////
     /// Tor State ///
     /////////////////
-    private String torState = TorState.OFF;
-    private String torNetworkState = TorNetworkState.DISABLED;
-
-    @NonNull
-    public String getTorState() {
-        return torState;
-    }
-
-    @NonNull
-    public String getTorNetworkState() {
-        return torNetworkState;
-    }
-
     @Override
     public void broadcastTorState(@NonNull String torState, @NonNull String torNetworkState) {
-        this.torState = torState;
-        this.torNetworkState = torNetworkState;
+        ZeusTorModule.updateTorState(torState, torNetworkState);
     }
 }
