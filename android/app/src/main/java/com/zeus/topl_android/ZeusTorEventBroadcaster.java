@@ -3,7 +3,8 @@ package com.zeus.topl_android;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.matthewnelson.topl_service.service.components.onionproxy.TorServiceEventBroadcaster;
+import io.matthewnelson.topl_service.service.components.onionproxy.model.TorPortInfo;
+import io.matthewnelson.topl_service.service.components.onionproxy.model.TorServiceEventBroadcaster;
 
 /**
  * Ports are broadcast and then set to each variable _after_ Tor has been bootstrapped.
@@ -15,70 +16,18 @@ import io.matthewnelson.topl_service.service.components.onionproxy.TorServiceEve
  * */
 public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
 
-    ///////////////////////////
-    /// ControlPort Address ///
-    ///////////////////////////
-    @Nullable
-    volatile private String controlPortAddress = null;
-
-    /**
-     * Will return either:
-     *   - null (if Tor is not Bootstrapped)
-     *   - 127.0.0.1:PORT (where PORT is the automatically chosen port Tor set for
-     *   the Control Port) as a String
-     * */
-    @Nullable
-    public String getControlPortAddress() {
-        return controlPortAddress;
-    }
-
-    @Override
-    public void broadcastControlPortAddress(@Nullable String controlPortAddress) {
-        this.controlPortAddress = controlPortAddress;
-    }
-
     ///////////////////////
-    /// HttpPortAddress ///
+    /// PortInformation ///
     ///////////////////////
-    @Nullable
-    volatile private String httpPortAddress = null;
+    volatile private TorPortInfo torPortInfo = new TorPortInfo(null, null, null, null, null);
 
-    /**
-     * Will return either:
-     *   - null (if Tor is not Bootstrapped)
-     *   - 127.0.0.1:PORT (where PORT is the automatically chosen port Tor set for
-     *   the http proxy) as a String
-     * */
-    @Nullable
-    public String getHttpPortAddress() {
-        return httpPortAddress;
+    public TorPortInfo getTorPortInfo() {
+        return torPortInfo;
     }
 
     @Override
-    public void broadcastHttpPortAddress(@Nullable String httpPortAddress) {
-        this.httpPortAddress = httpPortAddress;
-    }
-
-    /////////////////////////
-    /// SocksPort Address ///
-    /////////////////////////
-    @Nullable
-    volatile private String socksPortAddress = null;
-
-    /**
-     * Will return either:
-     *   - null (if Tor is not Bootstrapped)
-     *   - 127.0.0.1:PORT (where PORT is the automatically chosen port Tor set for
-     *   the Socks5 proxy) as a String
-     * */
-    @Nullable
-    public String getSocksPortAddress() {
-        return socksPortAddress;
-    }
-
-    @Override
-    public void broadcastSocksPortAddress(@Nullable String socksPortAddress) {
-        this.socksPortAddress = socksPortAddress;
+    public void broadcastPortInformation(@NonNull TorPortInfo torPortInfo) {
+        this.torPortInfo = torPortInfo;
     }
 
     /////////////////

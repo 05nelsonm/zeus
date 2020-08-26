@@ -12,13 +12,19 @@ public class ZeusTorSettings extends TorSettings {
     @NonNull
     @Override
     public String getConnectionPadding() {
-        return DEFAULT__HAS_CONNECTION_PADDING;
+        return ConnectionPadding.OFF;
     }
 
     @Nullable
     @Override
     public String getCustomTorrc() {
         return null;
+    }
+
+    @Nullable
+    @Override
+    public Integer getDormantClientTimeout() {
+        return DEFAULT__DORMANT_CLIENT_TIMEOUT;
     }
 
     @Override
@@ -29,7 +35,13 @@ public class ZeusTorSettings extends TorSettings {
     @NonNull
     @Override
     public String getDnsPort() {
-        return DEFAULT__DNS_PORT;
+        return PortOption.DISABLED;
+    }
+
+    @Nullable
+    @Override
+    public List<@IsolationFlag String> getDnsPortIsolationFlags() {
+        return null;
     }
 
     @Nullable
@@ -71,11 +83,6 @@ public class ZeusTorSettings extends TorSettings {
     }
 
     @Override
-    public boolean getHasIsolationAddressFlagForTunnel() {
-        return DEFAULT__HAS_ISOLATION_ADDRESS_FLAG_FOR_TUNNEL;
-    }
-
-    @Override
     public boolean getHasOpenProxyOnAllInterfaces() {
         return DEFAULT__HAS_OPEN_PROXY_ON_ALL_INTERFACES;
     }
@@ -108,7 +115,15 @@ public class ZeusTorSettings extends TorSettings {
     @NonNull
     @Override
     public String getHttpTunnelPort() {
-        return "auto";
+        return PortOption.AUTO;
+    }
+
+    @Nullable
+    @Override
+    public List<@IsolationFlag String> getHttpTunnelPortIsolationFlags() {
+        List<@IsolationFlag String> httpIsolationFlags = new ArrayList<@IsolationFlag String>();
+        httpIsolationFlags.add(IsolationFlag.ISOLATE_CLIENT_PROTOCOL);
+        return httpIsolationFlags;
     }
 
     @Override
@@ -124,10 +139,10 @@ public class ZeusTorSettings extends TorSettings {
     @NonNull
     @Override
     public List<String> getListOfSupportedBridges() {
-        List<String> bridgeType = new ArrayList<String>();
-        bridgeType.add(SupportedBridges.MEEK);
-        bridgeType.add(SupportedBridges.OBFS4);
-        bridgeType.add(SupportedBridges.SNOWFLAKE);
+        List<@SupportedBridgeType String> bridgeType = new ArrayList<@SupportedBridgeType String>();
+        bridgeType.add(SupportedBridgeType.MEEK);
+        bridgeType.add(SupportedBridgeType.OBFS4);
+        bridgeType.add(SupportedBridgeType.SNOWFLAKE);
         return bridgeType;
     }
 
@@ -164,7 +179,7 @@ public class ZeusTorSettings extends TorSettings {
     @Nullable
     @Override
     public String getProxyType() {
-        return DEFAULT__PROXY_TYPE;
+        return ProxyType.DISABLED;
     }
 
     @Nullable
@@ -185,27 +200,45 @@ public class ZeusTorSettings extends TorSettings {
         return DEFAULT__RELAY_NICKNAME;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    public Integer getRelayPort() {
-        return null;
+    public String getRelayPort() {
+        return PortOption.DISABLED;
     }
 
     @Override
     public boolean getRunAsDaemon() {
-        return false;
+        return DEFAULT__RUN_AS_DAEMON;
     }
 
     @NonNull
     @Override
     public String getSocksPort() {
-        return "auto";
+        return PortOption.AUTO;
+    }
+
+    @Nullable
+    @Override
+    public List<@IsolationFlag String> getSocksPortIsolationFlags() {
+        List<@IsolationFlag String> socksIsolationFlags = new ArrayList<@IsolationFlag String>();
+        socksIsolationFlags.add(IsolationFlag.KEEP_ALIVE_ISOLATE_SOCKS_AUTH);
+        socksIsolationFlags.add(IsolationFlag.ISOLATE_CLIENT_PROTOCOL);
+        socksIsolationFlags.add(IsolationFlag.ONION_TRAFFIC_ONLY);
+        return socksIsolationFlags;
     }
 
     @NonNull
     @Override
     public String getTransPort() {
-        return DEFAULT__TRANS_PORT;
+        return PortOption.DISABLED;
+    }
+
+    @Nullable
+    @Override
+    public List<@IsolationFlag String> getTransPortIsolationFlags() {
+        List<@IsolationFlag String> transIsolationFlags = new ArrayList<@IsolationFlag String>();
+        transIsolationFlags.add(IsolationFlag.ISOLATE_CLIENT_PROTOCOL);
+        return transIsolationFlags;
     }
 
     @Override

@@ -88,7 +88,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Nullable
   public String getControlPort() {
     try {
-      return getEventBroadcaster().getControlPortAddress();
+      return getEventBroadcaster().getTorPortInfo().getControlPort();
     } catch (ClassCastException e) {
       return null;
     }
@@ -97,7 +97,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Nullable
   public String getHttpAddress() {
     try {
-      return getEventBroadcaster().getHttpPortAddress();
+      return getEventBroadcaster().getTorPortInfo().getHttpPort();
     } catch (ClassCastException e) {
       return null;
     }
@@ -106,7 +106,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Nullable
   public String getSocksAddress() {
     try {
-      return getEventBroadcaster().getSocksPortAddress();
+      return getEventBroadcaster().getTorPortInfo().getSocksPort();
     } catch (ClassCastException e) {
       return null;
     }

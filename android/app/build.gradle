@@ -207,7 +207,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
-    def topl_version = "1.0.0-alpha03-SNAPSHOT"
+    def topl_version = "1.0.0-beta01"
     implementation "io.matthewnelson.topl-android:topl-core-base:$topl_version"
     implementation "io.matthewnelson.topl-android:topl-service:$topl_version"
     implementation "io.matthewnelson.topl-android:tor-binary:0.4.3.5a"
