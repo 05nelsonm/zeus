@@ -8,11 +8,11 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.facebook.soloader.SoLoader;
 import com.zeus.topl_android.ZeusTorEventBroadcaster;
+import com.zeus.topl_android.ZeusTorPackage;
 import com.zeus.topl_android.ZeusTorSettings;
 
 import java.util.List;
@@ -31,8 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
         }
         @Override
         protected List<ReactPackage> getPackages() {
-          @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
+          packages.add(new ZeusTorPackage());
           return packages;
         }
         @Override
