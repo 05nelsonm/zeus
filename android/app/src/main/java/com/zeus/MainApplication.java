@@ -55,7 +55,7 @@ public class MainApplication extends Application implements ReactApplication {
     // setup Tor first before calling any APIs
     setupTor(this);
 
-    // put this anywhere (maybe after successful login)
+    // TODO: REMOVE ME!!!
     TorServiceController.Companion.startTor();
   }
 

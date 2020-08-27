@@ -8,10 +8,10 @@ import io.matthewnelson.topl_service.service.components.onionproxy.model.TorServ
 
 /**
  * Ports are broadcast and then set to each variable _after_ Tor has been bootstrapped.
- * If Tor's state changes from ON to anything else (via restart, or stopping), null will
- * be broadcast.
+ * If Tor's state changes from ON to anything else (via restart, or stopping), the
+ * TorPortInfo class will be broadcast will all fields equal to null.
  *
- * This class was instantiated in MainApplication.setupTor and is available from
+ * This class is instantiated in MainApplication.setupTor, and is available from
  * TorServiceController.Companion.appEventBroadcaster
  */
 public class TorEventBroadcaster extends TorServiceEventBroadcaster {
@@ -43,7 +43,7 @@ public class TorEventBroadcaster extends TorServiceEventBroadcaster {
     /// Exception Messages ///
     //////////////////////////
     /**
-     * Filters for TorService class, which is the only class that will broadcast an exception
+     * Filters for TorService class, which is the class that will broadcast an exception
      * if there is an issue with Tor starting/stopping/etc.
      */
     @Override

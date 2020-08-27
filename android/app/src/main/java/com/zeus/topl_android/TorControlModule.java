@@ -3,19 +3,12 @@ package com.zeus.topl_android;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import io.matthewnelson.topl_core_base.BaseConsts.TorState;
-import io.matthewnelson.topl_core_base.BaseConsts.TorNetworkState;
 import io.matthewnelson.topl_service.TorServiceController;
-import io.matthewnelson.topl_service.service.components.onionproxy.model.TorPortInfo;
 
 public class TorControlModule extends ReactContextBaseJavaModule {
 
@@ -48,11 +41,15 @@ public class TorControlModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startTor(Callback errorCallback) {
+    public void startTor(@Nullable Callback errorCallback) {
         try {
+            // Runtime Exception is thrown if MainApplication.setupTor
+            // is not invoked (so basically never... but should catch it none the less)
             TorServiceController.Companion.startTor();
         } catch (RuntimeException e) {
-            errorCallback.invoke(e.getMessage());
+            if (errorCallback != null) {
+                errorCallback.invoke(e.getMessage());
+            }
         }
     }
 

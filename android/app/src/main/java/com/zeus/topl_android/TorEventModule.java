@@ -11,9 +11,20 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import io.matthewnelson.topl_core_base.BaseConsts;
+import io.matthewnelson.topl_core_base.BaseConsts.TorState;
+import io.matthewnelson.topl_core_base.BaseConsts.TorNetworkState;
 import io.matthewnelson.topl_service.service.components.onionproxy.model.TorPortInfo;
 
+/**
+ * Can query for information using the ReactMethods, as well as attach listeners
+ * for:
+ *  - TorPortChangeEvent
+ *  - TorServiceExceptionEvent
+ *  - TorStateChangeEvent
+ *
+ * Events are automatically broadcast while Tor is operating using the appropriate
+ * method in TorEventBroadcaster. Those events will be emitted here to the NativeEventEmitter.
+ * */
 public class TorEventModule extends ReactContextBaseJavaModule {
 
     @Nullable
@@ -43,31 +54,31 @@ public class TorEventModule extends ReactContextBaseJavaModule {
     volatile private static TorPortInfo torPortInfo = new TorPortInfo(null, null, null, null, null);
 
     @ReactMethod
-    public void getControlPortAddress(Promise promise) {
+    public void getControlPortAddress(@NonNull Promise promise) {
         promise.resolve(torPortInfo.getControlPort());
     }
 
     @ReactMethod
-    public void getDnsPortAddress(Promise promise) {
+    public void getDnsPortAddress(@NonNull Promise promise) {
         promise.resolve(torPortInfo.getDnsPort());
     }
 
     @ReactMethod
-    public void getHttpPortAddress(Promise promise) {
+    public void getHttpPortAddress(@NonNull Promise promise) {
         promise.resolve(torPortInfo.getHttpPort());
     }
 
     @ReactMethod
-    public void getSocksPortAddress(Promise promise) {
+    public void getSocksPortAddress(@NonNull Promise promise) {
         promise.resolve(torPortInfo.getSocksPort());
     }
 
     @ReactMethod
-    public void getTransPortAddress(Promise promise) {
+    public void getTransPortAddress(@NonNull Promise promise) {
         promise.resolve(torPortInfo.getTransPort());
     }
 
-    static void updateTorPortInfo(TorPortInfo torPortInfo) {
+    static void updateTorPortInfo(@NonNull TorPortInfo torPortInfo) {
         TorEventModule.torPortInfo = torPortInfo;
 
         WritableMap params = Arguments.createMap();
@@ -94,20 +105,20 @@ public class TorEventModule extends ReactContextBaseJavaModule {
     private static final String TOR_STATE = "TOR_STATE";
     private static final String TOR_NETWORK_STATE = "TOR_NETWORK_STATE";
 
-    volatile private static String torState = BaseConsts.TorState.OFF;
-    volatile private static String torNetworkState = BaseConsts.TorNetworkState.DISABLED;
+    volatile private static String torState = TorState.OFF;
+    volatile private static String torNetworkState = TorNetworkState.DISABLED;
 
     @ReactMethod
-    public void getTorState(Promise promise) {
+    public void getTorState(@NonNull Promise promise) {
         promise.resolve(torState);
     }
 
     @ReactMethod
-    public void getTorNetworkState(Promise promise) {
+    public void getTorNetworkState(@NonNull Promise promise) {
         promise.resolve(torNetworkState);
     }
 
-    static void updateTorState(@BaseConsts.TorState String state, @BaseConsts.TorNetworkState String networkState) {
+    static void updateTorState(@TorState String state, @TorNetworkState String networkState) {
         torState = state;
         torNetworkState = networkState;
 

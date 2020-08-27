@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import io.matthewnelson.topl_core_base.TorSettings;
 
+/**
+ * Default Settings for creating the torrc file. See TorSettings
+ * for more information & documentation.
+ * */
 public class ZeusTorSettings extends TorSettings {
 
     @NonNull
@@ -177,7 +181,7 @@ public class ZeusTorSettings extends TorSettings {
         return null;
     }
 
-    @Nullable
+    @NonNull
     @Override
     public String getProxyType() {
         return ProxyType.DISABLED;
