@@ -148,14 +148,14 @@ public class ZeusTorModule extends ReactContextBaseJavaModule {
         sendEvent("TorStateChangeEvent", params);
     }
 
-    private static void sendEvent(String eventName, @Nullable WritableMap params) {
+    private static void sendEvent(@NonNull String eventName, @Nullable WritableMap params) {
         if (reactContext == null) return;
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, params);
     }
 
-    private static void sendEvent(String eventName, @Nullable String string) {
+    private static void sendEvent(@NonNull String eventName, @Nullable String string) {
         if (reactContext == null) return;
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
