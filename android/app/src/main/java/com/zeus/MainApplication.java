@@ -66,7 +66,7 @@ public class MainApplication extends Application implements ReactApplication {
           "TorOnionProxyLibrary-Android",
           615
     )
-          // customize the images later with your own images
+          // customize the images later with your own
           .setImageTorNetworkingEnabled(R.drawable.tor_stat_network_enabled)
           .setImageTorNetworkingDisabled(R.drawable.tor_stat_network_disabled)
           .setImageTorDataTransfer(R.drawable.tor_stat_network_dataxfer)
@@ -101,11 +101,24 @@ public class MainApplication extends Application implements ReactApplication {
           "common/geoip",
           "common/geoip6"
     )
+          // Adjust time as desired. See each method's documentation for more info.
+          .addTimeToDisableNetworkDelay(1_000L)
+          .addTimeToRestartTorDelay(100L)
+          .addTimeToStopServiceDelay(100L)
+
+          // When user swipes the App from recent app's tray, the Service
+          // automatically stops itself after properly shutting down Tor.
+          // If setting this option to true, the BackgroundManager policy
+          // must be changed or exceptions are thrown to enforce proper
+          // operation of the Library.
+          .disableStopServiceOnTaskRemoved(false)
+
           .setBuildConfigDebug(BuildConfig.DEBUG)
 
           // is available from TorServiceController.Companion.appEventBroadcaster
-          // just cast it as ZeusTorEventBroadcaster
+          // just cast it as TorEventBroadcaster
           .setEventBroadcaster(new TorEventBroadcaster())
+
           .build();
   }
 }
