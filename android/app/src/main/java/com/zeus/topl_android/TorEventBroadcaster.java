@@ -14,14 +14,14 @@ import io.matthewnelson.topl_service.service.components.onionproxy.model.TorServ
  * This class was instantiated in MainApplication.setupTor and is available from
  * TorServiceController.Companion.appEventBroadcaster
  */
-public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
+public class TorEventBroadcaster extends TorServiceEventBroadcaster {
 
     ///////////////////
     /// TorPortInfo ///
     ///////////////////
     @Override
     public void broadcastPortInformation(@NonNull TorPortInfo torPortInfo) {
-        ZeusTorModule.updateTorPortInfo(torPortInfo);
+        TorEventModule.updateTorPortInfo(torPortInfo);
     }
 
 
@@ -49,7 +49,7 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     @Override
     public void broadcastException(@Nullable String msg, @NonNull Exception e) {
         if (msg != null && msg.contains("|TorService|")) {
-            ZeusTorModule.handleTorServiceException(msg, e);
+            TorEventModule.handleTorServiceException(msg, e);
         }
         e.printStackTrace();
     }
@@ -74,6 +74,6 @@ public class ZeusTorEventBroadcaster extends TorServiceEventBroadcaster {
     /////////////////
     @Override
     public void broadcastTorState(@NonNull String torState, @NonNull String torNetworkState) {
-        ZeusTorModule.updateTorState(torState, torNetworkState);
+        TorEventModule.updateTorState(torState, torNetworkState);
     }
 }

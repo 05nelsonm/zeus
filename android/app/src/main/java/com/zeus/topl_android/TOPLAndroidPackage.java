@@ -11,13 +11,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ZeusTorPackage implements ReactPackage {
+public class TOPLAndroidPackage implements ReactPackage {
 
     @NonNull
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new ZeusTorModule(reactContext));
+        modules.add(new TorControlModule(reactContext));
+        modules.add(new TorEventModule(reactContext));
         return modules;
     }
 

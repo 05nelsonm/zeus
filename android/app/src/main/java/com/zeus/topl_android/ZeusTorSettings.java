@@ -123,6 +123,7 @@ public class ZeusTorSettings extends TorSettings {
     public List<@IsolationFlag String> getHttpTunnelPortIsolationFlags() {
         List<@IsolationFlag String> httpIsolationFlags = new ArrayList<@IsolationFlag String>();
         httpIsolationFlags.add(IsolationFlag.ISOLATE_CLIENT_PROTOCOL);
+        httpIsolationFlags.add(IsolationFlag.ONION_TRAFFIC_ONLY);
         return httpIsolationFlags;
     }
 

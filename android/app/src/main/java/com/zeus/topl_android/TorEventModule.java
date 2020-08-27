@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -12,17 +11,15 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import io.matthewnelson.topl_core_base.BaseConsts.TorState;
-import io.matthewnelson.topl_core_base.BaseConsts.TorNetworkState;
-import io.matthewnelson.topl_service.TorServiceController;
+import io.matthewnelson.topl_core_base.BaseConsts;
 import io.matthewnelson.topl_service.service.components.onionproxy.model.TorPortInfo;
 
-public class ZeusTorModule extends ReactContextBaseJavaModule {
+public class TorEventModule extends ReactContextBaseJavaModule {
 
     @Nullable
     private static ReactApplicationContext reactContext;
 
-    ZeusTorModule(@NonNull ReactApplicationContext context) {
+    TorEventModule(@NonNull ReactApplicationContext context) {
         super(context);
         reactContext = context;
     }
@@ -30,35 +27,7 @@ public class ZeusTorModule extends ReactContextBaseJavaModule {
     @NonNull
     @Override
     public String getName() {
-        return "ZeusTorModule";
-    }
-
-
-    ////////////////////////////
-    /// TorServiceController ///
-    ////////////////////////////
-    @ReactMethod
-    public void newTorIdentity() {
-        TorServiceController.Companion.newIdentity();
-    }
-
-    @ReactMethod
-    public void restartTor() {
-        TorServiceController.Companion.restartTor();
-    }
-
-    @ReactMethod
-    public void startTor(Callback errorCallback) {
-        try {
-            TorServiceController.Companion.startTor();
-        } catch (RuntimeException e) {
-            errorCallback.invoke(e.getMessage());
-        }
-    }
-
-    @ReactMethod
-    public void stopTor() {
-        TorServiceController.Companion.stopTor();
+        return "TorEventModule";
     }
 
 
@@ -99,7 +68,7 @@ public class ZeusTorModule extends ReactContextBaseJavaModule {
     }
 
     static void updateTorPortInfo(TorPortInfo torPortInfo) {
-        ZeusTorModule.torPortInfo = torPortInfo;
+        TorEventModule.torPortInfo = torPortInfo;
 
         WritableMap params = Arguments.createMap();
         params.putString(CONTROL_PORT_INFO, torPortInfo.getControlPort());
@@ -125,8 +94,8 @@ public class ZeusTorModule extends ReactContextBaseJavaModule {
     private static final String TOR_STATE = "TOR_STATE";
     private static final String TOR_NETWORK_STATE = "TOR_NETWORK_STATE";
 
-    volatile private static String torState = TorState.OFF;
-    volatile private static String torNetworkState = TorNetworkState.DISABLED;
+    volatile private static String torState = BaseConsts.TorState.OFF;
+    volatile private static String torNetworkState = BaseConsts.TorNetworkState.DISABLED;
 
     @ReactMethod
     public void getTorState(Promise promise) {
@@ -138,7 +107,7 @@ public class ZeusTorModule extends ReactContextBaseJavaModule {
         promise.resolve(torNetworkState);
     }
 
-    static void updateTorState(@TorState String state, @TorNetworkState String networkState) {
+    static void updateTorState(@BaseConsts.TorState String state, @BaseConsts.TorNetworkState String networkState) {
         torState = state;
         torNetworkState = networkState;
 

@@ -11,8 +11,8 @@ import com.facebook.react.ReactPackage;
 import androidx.core.app.NotificationCompat;
 
 import com.facebook.soloader.SoLoader;
-import com.zeus.topl_android.ZeusTorEventBroadcaster;
-import com.zeus.topl_android.ZeusTorPackage;
+import com.zeus.topl_android.TorEventBroadcaster;
+import com.zeus.topl_android.TOPLAndroidPackage;
 import com.zeus.topl_android.ZeusTorSettings;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
           List<ReactPackage> packages = new PackageList(this).getPackages();
-          packages.add(new ZeusTorPackage());
+          packages.add(new TOPLAndroidPackage());
           return packages;
         }
         @Override
@@ -105,7 +105,7 @@ public class MainApplication extends Application implements ReactApplication {
 
           // is available from TorServiceController.Companion.appEventBroadcaster
           // just cast it as ZeusTorEventBroadcaster
-          .setEventBroadcaster(new ZeusTorEventBroadcaster())
+          .setEventBroadcaster(new TorEventBroadcaster())
           .build();
   }
 }
